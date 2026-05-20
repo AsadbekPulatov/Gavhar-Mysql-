@@ -103,9 +103,7 @@
                     <input name="gacha" style="width: 140px; height: 40px;" value="{{$gacha}}" type="date" required
                            class="form-control" id="inputPassword2">
                     <p style="margin-left: 3px; margin-right: 3px; margin-top: auto; margin-bottom:auto;">Санасигача</p>
-                    <button style="width: 140px; height: 40px;"
-                            type="submit" class="btn btn-primary ">Хисобот Куриш
-                    </button>
+                    <button style="width: 140px; height: 40px;" type="submit" class="btn btn-primary ">Хисобот</button>
                 </div>
             </form>
         </div>

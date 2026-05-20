@@ -29,15 +29,16 @@ class WaiterController extends Controller
         }else{
             $sanasi="$gdan";
         }
-        $dan=date('Y-d-m H:i:s', strtotime("+3 hour", strtotime($dan)));
-        $gacha=date('Y-d-m H:i:s', strtotime("+3 hour", strtotime($gacha)));
+        $dan=date('Y-m-d H:i:s', strtotime("+3 hour", strtotime($dan)));
+        $gacha=date('Y-m-d H:i:s', strtotime("+3 hour", strtotime($gacha)));
         $start_time = microtime(true);
         $sql="SELECT PAYMENTS.PAYLINETYPE, PAYBINDINGS.DISTRDISCOUNTS,MENUITEMS.NAME,SESSIONDISHES.QUANTITY,SESSIONDISHES.CLOSEDPAYSUM,SESSIONDISHES.VISIT as VISIT_ID,ORDERS.MAINWAITER AS WAITER_ID, SESSIONDISHES.UNI,SESSIONDISHES.CREATIONDATETIME  FROM SESSIONDISHES
 INNER JOIN PAYBINDINGS ON SESSIONDISHES.VISIT = PAYBINDINGS.VISIT AND SESSIONDISHES.UNI = PAYBINDINGS.DISHUNI
 INNER JOIN PAYMENTS ON SESSIONDISHES.VISIT=PAYMENTS.VISIT
 INNER JOIN MENUITEMS ON SESSIONDISHES.SIFR = MENUITEMS.SIFR
 INNER JOIN ORDERS ON SESSIONDISHES.VISIT=ORDERS.VISIT
-WHERE PAYBINDINGS.STATE = 6 AND PAYMENTS.STATE = 6 AND SESSIONDISHES.CREATIONDATETIME >='$dan' AND SESSIONDISHES.CREATIONDATETIME<='$gacha';;";
+WHERE PAYBINDINGS.STATE = 6 AND PAYMENTS.STATE = 6";
+//            " AND SESSIONDISHES.CREATIONDATETIME >='$dan' AND SESSIONDISHES.CREATIONDATETIME<='$gacha';";
         $session=DB::select($sql);
 
         $sql2="SELECT EMPLOYEES.SIFR AS ID,
@@ -128,8 +129,8 @@ WHERE PAYBINDINGS.STATE = 6 AND PAYMENTS.STATE = 6 AND SESSIONDISHES.CREATIONDAT
         }else{
             $sanasi="$gdan";
         }
-        $dan=date('Y-d-m H:i:s', strtotime("+3 hour", strtotime($dan)));
-        $gacha=date('Y-d-m H:i:s', strtotime("+3 hour", strtotime($gacha)));
+        $dan=date('Y-m-d H:i:s', strtotime("+3 hour", strtotime($dan)));
+        $gacha=date('Y-m-d H:i:s', strtotime("+3 hour", strtotime($gacha)));
         $start_time = microtime(true);
         $sql="SELECT PAYMENTS.PAYLINETYPE, PAYBINDINGS.DISTRDISCOUNTS,MENUITEMS.NAME,SESSIONDISHES.QUANTITY,SESSIONDISHES.CLOSEDPAYSUM,SESSIONDISHES.VISIT as VISIT_ID,ORDERS.MAINWAITER AS WAITER_ID, SESSIONDISHES.UNI,SESSIONDISHES.CREATIONDATETIME  FROM SESSIONDISHES
 INNER JOIN PAYBINDINGS ON SESSIONDISHES.VISIT = PAYBINDINGS.VISIT AND SESSIONDISHES.UNI = PAYBINDINGS.DISHUNI
@@ -210,7 +211,6 @@ WHERE PAYBINDINGS.STATE = 6 AND PAYMENTS.STATE = 6 AND SESSIONDISHES.CREATIONDAT
             'sanasi'=>$sanasi,
             'dan'=>$gdan,
             'gacha'=>$ggacha,
-
         ]);
     }
 }

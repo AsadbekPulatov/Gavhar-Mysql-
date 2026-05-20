@@ -34,8 +34,8 @@ class HomeController extends Controller
     {
         $sn=now('Asia/Tashkent');
 
-        $dan=date('Y-d-m', strtotime("-1 day", strtotime($sn)));
-        $gacha=date('Y-d-m', strtotime("+0 day", strtotime($sn)));
+        $dan=date('Y-m-d', strtotime("-1 day", strtotime($sn)));
+        $gacha=date('Y-m-d', strtotime("+0 day", strtotime($sn)));
         $gachaa = $dan;
 //        $gacha = date('Y-m-d', strtotime("+1 day", strtotime($gachaa)));
         $sql = "SELECT PAYMENTS.PAYLINETYPE, SESSIONDISHES.QUANTITY, SESSIONDISHES.PRICE,SESSIONDISHES.CLOSEDPAYSUM,
@@ -45,8 +45,8 @@ class HomeController extends Controller
             INNER JOIN MENUITEMS ON SESSIONDISHES.SIFR = MENUITEMS.SIFR
             INNER JOIN DISHGROUPS ON DISHGROUPS.CHILD = MENUITEMS.SIFR
             INNER JOIN CLASSIFICATORGROUPS ON CLASSIFICATORGROUPS.IDENT = DISHGROUPS.PARENT
-            WHERE SESSIONDISHES.CLOSEDPAYSUM > 0 AND CLASSIFICATORGROUPS.PARENT = 2560 AND CLASSIFICATORGROUPS.STATUS > 0 ".
-            " AND SESSIONDISHES.CREATIONDATETIME >= '$dan 03:00' AND SESSIONDISHES.CREATIONDATETIME <= '$gacha 03:00'";
+            WHERE SESSIONDISHES.CLOSEDPAYSUM > 0 AND CLASSIFICATORGROUPS.PARENT = 2560 AND CLASSIFICATORGROUPS.STATUS > 0 ";
+//            " AND SESSIONDISHES.CREATIONDATETIME >= '$dan 03:00' AND SESSIONDISHES.CREATIONDATETIME <= '$gacha 03:00'";
         $session = DB::select($sql);
         $session = json_decode(json_encode($session), true);
         $sql = "SELECT CLASSIFICATORGROUPS.IDENT, CLASSIFICATORGROUPS.NAME
@@ -113,8 +113,8 @@ class HomeController extends Controller
     {
         $dann = $request->dan;
         $gachaa = $request->gacha;
-        $gacha = date('Y-d-m', strtotime("+ 27 hour", strtotime($gachaa)));
-        $dan = date('Y-d-m', strtotime($dann));
+        $gacha = date('Y-m-d', strtotime("+ 27 hour", strtotime($gachaa)));
+        $dan = date('Y-m-d', strtotime($dann));
 
         $sql = "SELECT PAYMENTS.PAYLINETYPE, SESSIONDISHES.QUANTITY, SESSIONDISHES.PRICE,SESSIONDISHES.CLOSEDPAYSUM,
        SESSIONDISHES.SIFR,    MENUITEMS.CODE,    MENUITEMS.NAME,   CLASSIFICATORGROUPS.IDENT,	   CLASSIFICATORGROUPS.NAME AS CLASS

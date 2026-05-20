@@ -15,8 +15,8 @@ class PaybindingController extends Controller
     {
         $sn=now('Asia/Tashkent');
 
-        $dan=date('Y-d-m', strtotime("-1 day", strtotime($sn)));
-        $gacha=date('Y-d-m', strtotime("+0 day", strtotime($sn)));
+        $dan=date('Y-m-d', strtotime("-1 day", strtotime($sn)));
+        $gacha=date('Y-m-d', strtotime("+0 day", strtotime($sn)));
 //        $gacha=$dan;
         $gachaa = $dan;
         $sql = "SELECT SESSIONDISHES.QUANTITY, SESSIONDISHES.PRICE, SESSIONDISHES.CREATIONDATETIME,
@@ -28,8 +28,8 @@ class PaybindingController extends Controller
             INNER JOIN DISHGROUPS ON DISHGROUPS.CHILD = MENUITEMS.SIFR
             INNER JOIN CLASSIFICATORGROUPS ON CLASSIFICATORGROUPS.IDENT = DISHGROUPS.PARENT
             WHERE SESSIONDISHES.CLOSEDPAYSUM > 0 AND CLASSIFICATORGROUPS.PARENT = 2560 AND CLASSIFICATORGROUPS.STATUS > 0
-             AND PAYBINDINGS.STATE = 6" .
-            " AND SESSIONDISHES.CREATIONDATETIME >= '$dan 03:00' AND SESSIONDISHES.CREATIONDATETIME <= '$gacha 03:00'";
+             AND PAYBINDINGS.STATE = 6";
+//            " AND SESSIONDISHES.CREATIONDATETIME >= '$dan 03:00' AND SESSIONDISHES.CREATIONDATETIME <= '$gacha 03:00'";
         $session = DB::select($sql);
         $session = json_decode(json_encode($session), true);
         $sql = "SELECT CLASSIFICATORGROUPS.IDENT, CLASSIFICATORGROUPS.NAME
@@ -89,8 +89,8 @@ class PaybindingController extends Controller
     {
         $dann = $request->dan;
         $gachaa = $request->gacha;
-        $gacha = date('Y-d-m', strtotime("+ 27 hour", strtotime($gachaa)));
-        $dan = date('Y-d-m', strtotime($dann));
+        $gacha = date('Y-m-d', strtotime("+ 27 hour", strtotime($gachaa)));
+        $dan = date('Y-m-d', strtotime($dann));
 
         $sql = "SELECT SESSIONDISHES.QUANTITY, SESSIONDISHES.PRICE, SESSIONDISHES.CREATIONDATETIME,
             PAYBINDINGS.PAYSUM,  PAYBINDINGS.COSTSUM,
